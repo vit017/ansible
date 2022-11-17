@@ -2,19 +2,23 @@
 - hosts: test
   gather_facts: no
   become: yes
+  vars:
+    os_type: "centos"
+    os_version: "7"
+    os_arch: "x86_64"
   tasks:
     - name: add signing key
       rpm_key:
-        key: "https://download.docker.com/linux/centos/gpg"
+        key: "https://download.docker.com/linux/{{ os_type }}/gpg"
         state: present
     - name: add repo into repo.d list
       yum_repository:
         name: docker
         description: docker repo
-        baseurl: "https://download.docker.com/linux/centos/7/x86_64/stable"
+        baseurl: "https://download.docker.com/linux/{{ os_type }}/{{ os_version }}/{{ os_arch }}/stable"
         enabled: true
         gpgcheck: true
-        gpgkey: "https://download.docker.com/linux/centos/gpg"
+        gpgkey: "https://download.docker.com/linux/{{ os_type }}/gpg"
     - name: install docker
       yum:
         name:
