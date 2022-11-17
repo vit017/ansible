@@ -1,9 +1,10 @@
 ---
 - hosts: test
   gather_facts: no
+  become: yes
   tasks:
   - name: install httpd
-    dnf:
+    yum:
       name: httpd
       state: installed
   - name: remove conf.d
@@ -18,13 +19,11 @@
     copy:
       src: /etc/ansible/playbooks/files/vhost.conf
       dest: /etc/httpd/conf.d/host1.conf
-      remote_src: yes
     notify: restart_httpd
   - name: create site content
     copy:
       src: /etc/ansible/playbooks/files/site_content.html
       dest: /var/www/html/index.html
-      remote_src: yes
 
   handlers:
     - name: restart httpd
