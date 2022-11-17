@@ -1,0 +1,10 @@
+---
+- hosts: test
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: start mariadb
+      service:
+        name: mariadb
+        state: started
+        enabled: true
