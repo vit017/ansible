@@ -1,0 +1,44 @@
+---
+- hosts: test
+  gather_facts: no
+  tasks:
+  - name: install httpd
+    dnf:
+      name: httpd
+      state: installed
+  - name: remove conf.d
+    file:
+      path: /etc/httpd/conf.d
+      state: absent
+  - name: create conf.d
+    file:
+      path: /etc/httpd/conf.d
+      state: directory
+  - name: add vhost
+    copy:
+      src: /etc/ansible/playbooks/files/vhost.conf
+      dest: /etc/httpd/conf.d/host1.conf
+      remote_src: yes
+    notify: restart_httpd
+  - name: create site content
+    copy:
+      src: /etc/ansible/playbooks/files/site_content.html
+      dest: /var/www/html/index.html
+      remote_src: yes
+
+  handlers:
+    - name: restart httpd
+      listen: restart_httpd
+      service:
+        name: httpd
+        state: restarted
+
+
+
+
+
+
+
+
+
+
