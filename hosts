@@ -43,4 +43,4 @@
 ## db-[99:101]-node.example.com
 
 [test]
-51.250.91.26    ansible_user=user
+158.160.34.199    ansible_user=vm1
