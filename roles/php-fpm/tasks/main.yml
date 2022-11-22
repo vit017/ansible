@@ -1,0 +1,25 @@
+---
+- name: "set vars"
+  set_fact:
+    php_version: ""
+
+- name: Install PHP-FPM
+  yum:
+    name: "php{{ php_version }}-fpm"
+    state: installed
+
+- name: Disable default pool
+  command: mv /etc/php-fpm.d/www.conf /etc/php-fpm.d/www.disabled creates=/etc/php-fpm.d/www.disabled
+  notify: restart php-fpm
+
+- name: Copy php-fpm configuration
+  template:
+    src: "../files/php-fpm.conf"
+    dest: "/etc/php-fpm.d/"
+  notify: restart php-fpm
+
+- name: Enable and start PHP-FPM service
+  service:
+    name: "php{{ php_version }}-fpm.service"
+    enabled: true
+    state: started
