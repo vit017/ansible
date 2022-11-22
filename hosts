@@ -31,7 +31,7 @@
 # Ex 3: A collection of database servers in the 'dbservers' group
 
 ## [dbservers]
-## 
+##
 ## db01.intranet.mydomain.net
 ## db02.intranet.mydomain.net
 ## 10.25.1.56
@@ -43,4 +43,4 @@
 ## db-[99:101]-node.example.com
 
 [test]
-158.160.34.199    ansible_user=vm1
+158.160.39.178    ansible_user=vm1
