@@ -1,0 +1,7 @@
+---
+- name: create ssh key user
+  hosts: test
+  gather_facts: no
+  become: yes
+  roles:
+    - users
