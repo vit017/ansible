@@ -1,0 +1,35 @@
+---
+
+- hosts: test
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: create group superusers
+      group:
+        name: superusers
+        state: present
+    - name: Allow 'superusers' group to have sudo without password
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%superusers ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+    - name: create user2
+      user:
+        name: user2
+        password: $6$KjyfytoJ$hoQdVIGcRZgje2HpHFf8ldvooLfY774SrEpHkADUf3d7uGBSwVLeMXsPIfb4l2TaXWvprMz868ZbH8HLaiDeh.
+        shell: /bin/bash
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        groups: superusers
+        append: yes
+    - name: create user3
+      user:
+        name: user3
+        password: $6$KjyfytoJ$hoQdVIGcRZgje2HpHFf8ldvooLfY774SrEpHkADUf3d7uGBSwVLeMXsPIfb4l2TaXWvprMz868ZbH8HLaiDeh.
+        shell: /bin/bash
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        groups: superusers
+        append: yes
