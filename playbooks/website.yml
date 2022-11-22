@@ -1,8 +1,17 @@
 ---
-- name: Install Nginx, PHP-FPM
-  hosts: test
+- name: Install Nginx
+  hosts: test_nginx
   gather_facts: no
   become: yes
   roles:
-    - nginx
-    - php-fpm
+    - users
+    - http
+
+
+- name: Install Php
+  hosts: test_php
+  gather_facts: no
+  become: yes
+  roles:
+    - users
+    - php

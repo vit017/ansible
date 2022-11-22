@@ -20,14 +20,3 @@
     src: "../files/nginx.conf"
     dest: "/etc/nginx/nginx.conf"
   notify: restart_nginx
-
-- name: create site directory
-  file:
-    path: /opt/nginx/ansible
-    state: directory
-    recurse: yes
-
-- name: create site content
-  copy:
-    src: "../files/index.php"
-    dest: /opt/nginx/ansible/index.php

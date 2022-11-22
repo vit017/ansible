@@ -8,6 +8,17 @@
     name: "php{{ php_version }}-fpm"
     state: installed
 
+- name: create site directory
+  file:
+    path: /var/www/html
+    state: directory
+    recurse: yes
+
+- name: create site content
+  copy:
+    src: "../files/index.php"
+    dest: /var/www/html/index.php
+
 - name: Disable default pool
   command: mv /etc/php-fpm.d/www.conf /etc/php-fpm.d/www.disabled creates=/etc/php-fpm.d/www.disabled
   notify: restart php-fpm
