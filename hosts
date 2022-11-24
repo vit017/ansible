@@ -43,7 +43,7 @@
 ## db-[99:101]-node.example.com
 
 [test_nginx]
-158.160.39.178    ansible_user=vm1
+158.160.47.198    ansible_user=vm1
 
 [test_php]
-158.160.33.29   ansible_user=vm2
+158.160.38.195   ansible_user=vm2
